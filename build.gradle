@@ -1,0 +1,21 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.6.10'
+    id 'java'
+}
+
+group 'me.liuli.jbs'
+version '1.0.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib"
+    // https://mvnrepository.com/artifact/com.beust/klaxon
+    implementation group: 'com.beust', name: 'klaxon', version: '5.5'
+}
+
+test {
+    useJUnitPlatform()
+}
