@@ -28,9 +28,9 @@ class PrivateMemberObfuscator : ITransformer {
         }
 
         klass.methods.forEach { method ->
-            if(method.access and Opcodes.ACC_PRIVATE != 0) {
+            if(!method.name.startsWith("<") && !method.name.contains("lambda") && method.access and Opcodes.ACC_PRIVATE != 0) {
                 val name = selector.select()
-                methodMap[method.name] = name
+                methodMap[method.name + method.desc] = name
                 method.name = name
             }
         }
@@ -43,7 +43,7 @@ class PrivateMemberObfuscator : ITransformer {
                     }
                 } else if(insn is MethodInsnNode) {
                     if (insn.owner == klass.name) {
-                        insn.name = methodMap[insn.name] ?: insn.name
+                        insn.name = methodMap[insn.name + insn.desc] ?: insn.name
                     }
                 }
             }
